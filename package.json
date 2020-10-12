@@ -4,7 +4,7 @@
   "description": "Digital Loan Library",
   "main": "server.js",
   "scripts": {
-    "start": "set NODE_ENV=development&& node server.js",
+    "start": "set NODE_ENV=production&& node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
     "clientinstall": "npm install --prefix client",
