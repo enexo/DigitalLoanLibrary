@@ -69,26 +69,26 @@ router.put('/:id', auth, async (req, res) => {
   // Build contact object
   const contactFields = {};
   if (game) contactFields.game = game;
-  if (loanTo) contactFields.onLoan = loanTo;
-
+  if (loanTo) contactFields.loanTo = loanTo;
   try {
     let contact = await Contact.findById(req.params.id);
 
     if (!contact) return res.status(404).json({msg: 'Game not found'});
-
+    console.log(req.user.id);
     // Make sure user owns contact
     if (contact.user.toString() !== req.user.id) {
       return res.status(401).json({msg: 'Not authorized'});
     }
+    console.log('we got here');
 
     contact = await Contact.findByIdAndUpdate(
       req.params.id,
-      {$set: contactFields},
+      {$set: contactFields, possession: req.params.id},
       {new: true},
     );
-
     res.json(contact);
   } catch (err) {
+    console.log('we got here 3');
     console.error(er.message);
     res.status(500).send('Server Error');
   }
